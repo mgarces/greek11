@@ -5,18 +5,15 @@ def respond(status, message=""):
     return {
         "isBase64Encoded": False,
         "statusCode": status,
-        "headers": {"whatevs": "yeah"},
-        "body": json.dumps({
-            "messages": message})
-        
-    }
+        "body": json.dumps(message)
+        }
 
 def lambda_handler(event, context):
     request_body = json.loads(event['body'])
     tag_key = '{}'.format(request_body['tag_key'])
     tag_value = '{}'.format(request_body['tag_value'])
     message = list_instances_by_tag(tag_key, tag_value)
-    return respond(200,message)
+    return respond(200, message)
 
 
 # returns a list of instances by defined tag
